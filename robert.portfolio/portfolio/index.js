@@ -11,6 +11,13 @@ import createReactClass from 'create-react-class';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute, hashHistory, withRouter } from 'react-router';
 
+// Module import
+import home from './modules/home';
+import blog from './modules/blog';
+import contact from './modules/contact';
+import pages from './modules/pages';
+import portfolio from './modules/portfolio';
+
 const master_data = require('../data/portfolio');
 
 const MasterPage = withRouter(
@@ -19,7 +26,7 @@ const MasterPage = withRouter(
 			return(
 				<div>
 					<Header master_page={master_data.master_page}/>
-					<div className="body-content">{this.props.children}</div>
+					<div className="body__content">{this.props.children}</div>
 					<Footer master_page={master_data.master_page}/>
 				</div>
 			)
@@ -27,25 +34,39 @@ const MasterPage = withRouter(
 	})
 )
 
-var Header = function(){
-
+var Header = function(props){
+	var componentNav = props.master_page.navigation.map(function(item ,i){
+		return(
+			<div className="nav__header">
+				<ul>
+					<li><Link to={item.page}>{item.page}</Link></li>
+				</ul>
+			</div>
+		)
+	})
+	var componentHeaderLink = props.master_page.links.map(function(item, i){
+		return(
+			<div className="sub_header__horizontal_links">
+				<ul>
+					<li>{item.link}</li>
+				</ul>
+			</div>
+		)
+	})
 	return(
 
 		<div>
-			
-			<div className="top-head">
-				<div className="logo"></div>
-				<div className="nav-wrapper">
-					<ul>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
+			<header className="header master_page__header">
+				<div className="sub_header">
+					<div className="sub_header__logo">
+						<a href=""></a>
+					</div>
 				</div>
-				<div className="social-network-wrapper"></div>
-			</div>
+				{componentNav}
+				<div className="sub_header">
+					{componentHeaderLink}
+				</div>
+			</header>
 
 		</div>
 
@@ -53,23 +74,45 @@ var Header = function(){
 
 }
 
-var Footer = function(){
-
+var Footer = function(props){
+	var componentFooterLink = props.master_page.links.map(function(item, i){
+		return(
+			<div className="sub_footer__horizontal_links">
+				<ul>
+					<li>{item.link}</li>
+				</ul>
+			</div>
+		)
+	})
 	return(
 
-		<div>
-			
-			<div className="footer">
-				<div className="email-wrapper"></div>
-				<div className="social-network-wrapper"></div>
-				<div className="copyright"></div>
+		<div className="footer master_page__footer">
+			<div className="sub_footer__contact">
+				<a href=""><i className="fa fa-envelope"></i></a>
 			</div>
-
+			{componentFooterLink}
+			<div className="sub_footer copyright">
+				{props.master_page.copyright.text}
+			</div>
+			
 		</div>
 
 	)
 
 }
+
+render((
+	<Router history={hashHistory}>
+		<Route path="/" component={MasterPage}>
+			<IndexRoute component={home} />
+			<Route path="home" component={home} />
+			<Route path="portfolio" component={portfolio} />
+			<Route path="contact" component={contact} />
+			<Route path="pages" component={pages} />
+			<Route path="blog" component={blog} />
+		</Route>
+	</Router>
+),document.getElementById('app'))
 
 if(module.hot){
 	module.hot.accept();

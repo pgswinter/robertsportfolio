@@ -1,29 +1,15 @@
 var React = require('react');
-import createReactClass from 'create-react-class'
-const master_data = require('../master_page/data');
+import createReactClass from 'create-react-class';
 
-function HeroPhoto(props){
-  return(
-    <section className="mobi-oran">
-      <div className="img-wrap-cent"><img src={require (`../../src/career/photos/Portfolio.jpg`)} alt=""/></div>
-    </section>
-  )
-}
 
-function PortfolioLoader(props){
-  return(
-    <div>
-      <HeroPhoto />
-    </div>
-  )
-}
-
-const Portfolio = createReactClass({
+const portfolio = createReactClass({
   render(){
     return(
-        <PortfolioLoader home_page={master_data.home_page} />
+        <div>
+          There is Portfolio
+        </div>
     )
   }
 })
 
-export default Portfolio
+export default portfolio

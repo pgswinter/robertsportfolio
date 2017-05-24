@@ -1,29 +1,15 @@
 var React = require('react');
-import createReactClass from 'create-react-class'
-const master_data = require('../master_page/data');
+import createReactClass from 'create-react-class';
 
-function HeroPhoto(props){
-  return(
-    <section className="mobi-oran">
-      <div className="img-wrap-cent"><img src={require (`../../src/career/photos/think.jpg`)} alt=""/></div>
-    </section>
-  )
-}
 
-function ContactLoader(props){
-  return(
-    <div>
-      <HeroPhoto />
-    </div>
-  )
-}
-
-const Contact = createReactClass({
+const contact = createReactClass({
   render(){
     return(
-        <ContactLoader contact={master_data.home_page} />
+        <div>
+          There is Contact
+        </div>
     )
   }
 })
 
-export default Contact
+export default contact
